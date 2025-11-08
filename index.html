@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Affet Beni 💔</title>
+<style>
+  body {
+    background-color: #fff0f5;
+    color: #333;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+    margin: 0;
+    transition: background 0.6s;
+  }
+  h1 {
+    font-size: 1.8em;
+    line-height: 1.4em;
+  }
+</style>
+</head>
+<body onclick="nextMessage()">
+
+  <h1 id="message">Canım... Bir şey söylemek istiyorum 💭</h1>
+
+<script>
+  const messages = [
+    "Canım... Bir şey söylemek istiyorum 💭",
+    "Seni üzmek hiç istemedim...",
+    "Bazen kelimeler yanlış çıkıyor ağzımdan 😔",
+    "Ama inan bana, kalbim hep seninle 💗",
+    "Sadece bir şans daha istiyorum...",
+    "Seni çok seviyorum 💞",
+    "Affeder misin beni? 🥺"
+  ];
+
+  let index = 0;
+
+  function nextMessage() {
+    index = (index + 1) % messages.length;
+    const msg = document.getElementById("message");
+    msg.style.opacity = 0;
+    setTimeout(() => {
+      msg.textContent = messages[index];
+      msg.style.opacity = 1;
+    }, 200);
+  }
+</script>
+
+</body>
+</html>
