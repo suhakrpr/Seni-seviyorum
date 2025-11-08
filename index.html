@@ -23,6 +23,7 @@
     font-size: 1.8em;
     line-height: 1.4em;
     margin-bottom: 20px;
+    transition: opacity 0.3s;
   }
   .buttons {
     display: none;
@@ -45,12 +46,12 @@
   }
 </style>
 </head>
-<body onclick="nextMessage()">
+<body>
 
   <h1 id="message">Canım... Bir şey söylemek istiyorum 💭</h1>
   <div class="buttons" id="buttons">
-    <button class="no" id="noBtn" onclick="pressNo()">Hayır 💔</button>
-    <button class="yes" id="yesBtn" onclick="pressYes()">Evet 💚</button>
+    <button class="no" id="noBtn">Hayır 💔</button>
+    <button class="yes" id="yesBtn">Evet 💚</button>
   </div>
 
 <script>
@@ -64,33 +65,40 @@
   ];
 
   let index = 0;
+  const msg = document.getElementById("message");
+  const btns = document.getElementById("buttons");
+  const noBtn = document.getElementById("noBtn");
+  const yesBtn = document.getElementById("yesBtn");
 
-  function nextMessage() {
-    const msg = document.getElementById("message");
-    const btns = document.getElementById("buttons");
-    index++;
-
-    if (index < messages.length) {
-      msg.textContent = messages[index];
-      if (index === messages.length - 1) {
-        btns.style.display = "flex";
-      }
+  // Mesajlara tıklamayla geçme
+  document.body.addEventListener("click", () => {
+    if (index < messages.length - 1) {
+      index++;
+      msg.style.opacity = 0;
+      setTimeout(() => {
+        msg.textContent = messages[index];
+        msg.style.opacity = 1;
+        if (index === messages.length - 1) {
+          btns.style.display = "flex";
+        }
+      }, 200);
     }
-  }
+  });
 
-  function pressNo() {
-    const no = document.getElementById("noBtn");
-    const yes = document.getElementById("yesBtn");
-    no.style.transform = "scale(0.8)";
-    yes.style.transform = "scale(1.2)";
-  }
+  // "Hayır" butonu animasyonu
+  noBtn.addEventListener("click", (e) => {
+    e.stopPropagation(); // body tıklamasını engelle
+    noBtn.style.transform = "scale(0.8)";
+    yesBtn.style.transform = "scale(1.2)";
+  });
 
-  function pressYes() {
+  // "Evet" butonu sonucu
+  yesBtn.addEventListener("click", (e) => {
+    e.stopPropagation(); // body tıklamasını engelle
     document.body.innerHTML = `
       <h1>Seni çok seviyorum 💖<br>Teşekkür ederim 💐</h1>
     `;
-    // Buraya istersen ileride bir bildirim sistemi ekleyebiliriz (örnek: Telegram botu)
-  }
+  });
 </script>
 
 </body>
