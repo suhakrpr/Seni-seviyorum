@@ -1,64 +1,3 @@
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Affet Beni 💔</title>
-<style>
-  body {
-    background-color: #fff0f5;
-    color: #333;
-    font-family: 'Poppins', sans-serif;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    padding: 20px;
-    margin: 0;
-    flex-direction: column;
-    transition: background 0.6s;
-  }
-  h1 {
-    font-size: 1.8em;
-    line-height: 1.4em;
-    margin-bottom: 20px;
-    transition: opacity 0.3s;
-  }
-  .buttons {
-    display: none;
-    gap: 20px;
-    margin-top: 20px;
-  }
-  button {
-    font-size: 1.2em;
-    padding: 12px 24px;
-    border: none;
-    border-radius: 10px;
-    color: white;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    outline: 2px solid transparent;
-  }
-  button:focus {
-    outline: 2px solid #333;
-  }
-  .yes {
-    background-color: #4CAF50;
-  }
-  .no {
-    background-color: #f44336;
-  }
-</style>
-</head>
-<body>
-
-  <h1 id="message">Canım... Bir şey söylemek istiyorum 💭</h1>
-  <div class="buttons" id="buttons" aria-label="Cevap seçenekleri">
-    <button type="button" class="no" id="noBtn">Hayır 💔</button>
-    <button type="button" class="yes" id="yesBtn">Evet 💚</button>
-  </div>
-
 <script>
   const messages = [
     "Canım... Bir şey söylemek istiyorum 💭",
@@ -75,6 +14,10 @@
   const noBtn = document.getElementById("noBtn");
   const yesBtn = document.getElementById("yesBtn");
   let interactionEnded = false;
+
+  // Başlangıç ölçekleri
+  let noScale = 1;
+  let yesScale = 1;
 
   // Mesajlara tıklamayla geçme
   document.body.addEventListener("click", () => {
@@ -94,15 +37,13 @@
     }
   });
 
-  // "Hayır" butonu animasyonu
+  // "Hayır" butonuna her tıkladığında ölçek küçülsün, evet büyüsün
   noBtn.addEventListener("click", (e) => {
     e.stopPropagation(); // body tıklamasını engelle
-    noBtn.style.transform = "scale(0.8)";
-    yesBtn.style.transform = "scale(1.2)";
-    setTimeout(() => {
-      noBtn.style.transform = "scale(1)";
-      yesBtn.style.transform = "scale(1)";
-    }, 300);
+    noScale *= 0.85;  // Her tıklamada %15 küçült
+    yesScale *= 1.15; // Her tıklamada %15 büyüt
+    noBtn.style.transform = `scale(${noScale})`;
+    yesBtn.style.transform = `scale(${yesScale})`;
   });
 
   // "Evet" butonu sonucu
@@ -113,6 +54,3 @@
     `;
   });
 </script>
-
-</body>
-</html>
